@@ -6,27 +6,24 @@ int main()
     int userpassword{0};
     int attempts{0};
     int maxattempts{3};
-    bool accessgranted{false};
     
-    while (attempts < maxattempts && !accessgranted) {
+    while (attempts < maxattempts) {
         std::cout << "Enter password: ";
         std::cin >> userpassword;
         
         if (userpassword == correctpassword) {
             std::cout << "Access Granted" << std::endl;
-            accessgranted = true;
+            return 0;
         } else if (userpassword > correctpassword) {
             std::cout << "Too high" << std::endl;
-            attempts++;
         } else {
             std::cout << "Too low" << std::endl;
-            attempts++;
         }
+        
+        attempts++;
     }
     
-    if (!accessgranted) {
-        std::cout << "Locked Out" << std::endl;
-    }
+    std::cout << "Locked Out" << std::endl;
     
     return 0;
 }
