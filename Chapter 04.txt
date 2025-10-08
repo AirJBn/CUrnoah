@@ -1,0 +1,419 @@
+SENG 1110 – Fall 2025
+Chapter 4: Control Statements and
+Algorithm Development, Part 2
+
+Dr. Zeinab Teimoori
+Department of Engineering
+
+Learning Objectives
+•
+•
+•
+•
+•
+•
+
+for and do…while iteration statements
+C++20 text formatting
+Multiple selection using the switch selection statement
+Selection statements with initializers
+break and continue statements
+Logical operators
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Essentials of Counter-Controlled
+Iteration
+• Counter-controlled iteration requires
+– a control variable (or loop counter)
+– the control variable’s initial value
+– the control variable’s increment that’s applied during
+each iteration of the loop
+– the loop-continuation condition that determines if
+looping should continue.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Counter-Controlled Iteration with the
+While Iteration Statement
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+for Iteration Statement (1 of 7)
+General Format of a for Statement
+for (initialization; loopContinuationCondition; increment) {
+statement(s)
+}
+– initialization declares control variable and provides its initial
+value
+– loopContinuationCondition—between the two required
+semicolons—determines whether loop should continue
+executing
+– increment modifies control variable’s value so the loopcontinuation condition eventually becomes false
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+for Iteration Statement (2 of 7)
+• Specifies counter-controlled-iteration details in a single
+line of code
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+for Iteration Statement (3 of 7)
+Expressions in a for Statement’s Header Are Optional
+• If you omit the loopContinuationCondition, the condition is
+always true, creating an infinite loop
+• Can omit the initialization expression if the program
+initializes the control variable before the loop
+• Can omit the increment expression if the program
+calculates the increment in the loop’s body or if no
+increment is needed
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+For Iteration Statement (4 of 7)
+• In most cases, the for statement can be represented by an
+equivalent while statement, as follows:
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+for Iteration Statement (5 of 7)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+For Iteration Statement (6 of 7)
+• The expressions
+
+• are all equivalent in the increment expression (when
+no other code appears there).
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+For Iteration Statement (7 of 7)
+• The initialization, loop-continuation condition and
+increment expressions of a for statement can contain
+arithmetic expressions.
+• The “increment” of a for statement can be negative,
+in which case it’s really a decrement and the loop
+actually counts downward.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Checkpoint
+(Code) Create a for statement that counts from 11 through 20
+and displays each value followed by two spaces.
+
+for (int counter{1}; counter <= 10; counter++) {
+cout << counter << " ";
+}
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Examples Using the for Statement (1 of 2)
+• Count from 1 to 100 in increments of 1.
+–
+• Count from 100 down to 1 in decrements of 1.
+–
+• Count from 7 to 77 in steps of 7.
+–
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Examples Using the for Statement (2 of 2)
+• Count from 20 down to 2 in steps of -2.
+–
+• Iterate over the sequence 2, 5, 8, 11, 14, 17, 20.
+–
+• Iterate over the sequence 99, 88, 77, 66, 55, 44, 33, 22,
+11, 0.
+• We use int rather than unsigned int here because the
+condition does not become false until i’s value is −11, so the control
+variable must be able to represent both positive and negative values.
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Summing Even Integers
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Summing Even Integers;
+Introducing C++20 Format Specifiers
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Summing Even Integers:
+Introducing C++20 Format Specifiers
+• C++20 text formatting with the format function in header
+<format>
+• Format String Placeholders
+– cout << format("Sum is {}\n", total);
+– First argument is a format string containing one or
+more placeholders delimited by curly braces ({ and })
+– Placeholders replaced by values of subsequent
+arguments
+– Placeholders may specify additional formatting
+instructions
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing C++20
+Format Specifiers
+• A person invests $1,000 in a savings account yielding 5%
+interest. Assuming all interest is left on deposit, calculate
+and print the amount of money in the account at the end of
+each year for 10 years.
+• amount = principal (1  rate)year
+– principal – original amount invested
+– rate – annual interest rate ( 0.05 for 5%)
+– year – number of years
+– amount – amount on deposit at the end of a given
+year
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing C++20
+Format Specifiers
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing C++20
+Format Specifiers
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing Format
+Specifiers (1 of 5)
+C++20 text formatting
+• Placeholder {:>7.2f}
+– Colon (:) introduces a format specifier
+– >7 says value should be right-aligned (>) in a field
+width of 7 character positions
+– .2f says to format a floating-point number (f) with two
+digits of precision (.2) to the right of the decimal point
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing Format
+Specifiers (2 of 5)
+C++20 text formatting
+• Format string "\n{}{:>20}\n”
+– "Year" simply placed at first placeholder’s ({}) position
+– {:>20} indicates that its argument, the 17-character string
+"Amount on Deposit", should be right-aligned (>) in a
+field of 20 characters
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing Format
+Specifiers (3 of 5)
+Performing the Interest Calculations with Standard Library
+Function pow
+• pow(x, y) calculates x raised to the yth power.
+• Receives two double arguments and returns a double
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing Format
+Specifiers (4 of 5)
+C++20 text formatting
+• Format string "{:>4d}{:>20.2f}\n"
+– {:>4d} formats year’s value as an integer (d means decimal
+integer) right-aligned (>) in a field of width 4—right-aligns all the
+year values under the four-character "Year" column
+– {:>20.2f} formats amount’s value right-aligned (>) in a field
+– width of 20 as a floating-point number (f) with two digits (.2) to
+the right of the decimal point—aligns decimal points vertically, as
+is typical with monetary amounts
+– Field width of 20 right-aligns amounts under the column heading
+"Amount on Deposit”
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Application: Compound-Interest
+Calculations; Introducing Format
+Specifiers (5 of 5)
+Floating-Point Number Precision and Memory Requirements
+• float – single-precision floating-point number
+• double – double-precision floating-point number
+• Type long double provides at least as much precision
+as double and sometimes more
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+do…while Iteration Statement (1 of 3)
+• while statement tests its loop-continuation condition
+before executing the loop’s body
+– If it’s false, the body never executes
+
+• do…while iteration statement tests the loop-continuation
+condition after executing the loop’s body,
+• So the body always executes at least once.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+do…while Iteration Statement (2 of 3)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+do…while Iteration Statement (2 of 3)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Checkpoint
+(True/False) The while, for and do…while
+statements perform their action (or group of
+actions) zero or more times.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+switch Multiple-Selection Statement
+(1 of 2)
+
+• switch chooses among many different actions based on
+the possible values of a variable or expression that
+evaluates to an integral constant
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+switch Multiple-Selection Statement
+(2 of 2)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Break Statement
+• The break statement, when executed in a while, for,
+do…while or switch statement, causes immediate exit
+from that statement.
+• Program execution continues with the next statement.
+• Common uses of the break statement are to escape
+early from a loop or to skip the remainder of a switch
+statement.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Break Statement Exiting a for Statement
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Continue Statement
+• The continue statement, when executed in a while,
+for or do…while statement, skips the remaining
+statements in the body of that statement and proceeds
+with the next iteration of the loop.
+• In while and do…while statements, the loopcontinuation test evaluates immediately after the
+continue statement executes.
+• In the for statement, the increment expression executes,
+then the loop-continuation test evaluates.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Continue Statement Terminating an
+Iteration of a for Statement
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Logical Operators (1 of 3)
+• C++ provides logical operators that are used to form
+more complex conditions by combining simple conditions.
+
+• Logical AND (&&)
+• Logical OR (||)
+• Logical negation (!)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Logical Operators (2 of 3)
+• if (employeeType == PILOT && age >= 63) {
+++seniorPilots;
+}
+Logical AND (&&) Operator Truth Table
+expression1
+
+expression2
+
+expression1 && expression2
+
+false
+
+false
+
+false
+
+false
+
+true
+
+false
+
+true
+
+false
+
+false
+
+true
+
+true
+
+true
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Logical Operators (3 of 3)
+• if ((semesterAverage >= 90) || (finalExam
+>= 90)) {
+cout << "Student grade is A\n";
+}
+Logical OR (||) Operator Truth Table
+expression1
+
+expression2
+
+expression1 || expression2
+
+false
+
+false
+
+false
+
+false
+
+true
+
+true
+
+true
+
+false
+
+true
+
+true
+
+true
+
+true
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Common Programming Error
+Using operator == for assignment and using operator = for
+equality are logic errors.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+C++’s Single-Entry/Single-Exit Sequence,
+Selection and Iteration Statements (1 of 2)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+C++’s Single-Entry/Single-Exit Sequence,
+Selection and Iteration Statements (2 of 2)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+
