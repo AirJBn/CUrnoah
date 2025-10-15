@@ -1,0 +1,1680 @@
+SENG 1110 – Fall 2025
+Chapter 5: Functions
+
+Dr. Zeinab Teimoori
+Department of Engineering
+
+Learning Objectives
+•
+•
+•
+•
+•
+•
+•
+•
+
+Math library and global functions
+Create custom function definitions
+Declare functions with function prototypes
+Key C++ standard library headers
+Random-number generation for simulation
+Scoped enums and C++20’s using enum declarations
+Digit separators for more readable numeric literals
+Inline functions
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.1 Program Components in C++
+(1 of 3)
+• Write C++ programs by combining
+– prepackaged functions and classes available in the C+
++ standard library,
+– functions and classes available in a vast number of
+open-source and proprietary
+– third-party libraries
+– new functions and classes you and your colleagues
+write
+• Functions and classes allow you to separate a program’s
+tasks into small self-contained units
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.1 Program Components in C++
+(2 of 3)
+• Motivations for using functions and classes to create
+program components
+– Software reuse
+– Avoiding code repetition
+– Hiding complexity
+– Easier testing, debugging and maintenance
+• Every function should perform a single, well-defined task
+– The function’s name should express that task
+effectively
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.1 Program Components in C++
+(3 of 3)
+Hierarchical Boss-Function/Worker-Function Relationship
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.2 Math Library Functions (1 of 6)
+<cmath>
+Function
+
+Description
+
+Example
+
+ceil(x)
+
+rounds x to the smallest integer not less
+than x
+
+ceil(9.2) is 10.0
+ceil(-9.8) is -9.0
+
+cos(x)
+
+trigonometric cosine of x (x in radians)
+
+cos(0.0) is 1.0
+
+exp(x)
+
+exponential function ex
+
+fabs(x)
+
+absolute value of x
+
+floor(x)
+
+rounds x to the largest integer not
+greater than x
+
+exp(1.0) is 2.718282
+exp(2.0) is 7.389056
+fabs(5.1) is 5.1
+fabs(0.0) is 0.0
+fabs(-8.76) is 8.76
+floor(9.2) is 9.0
+floor(-9.8) is -10.0
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.3 Math Library Functions (2 of 6)
+Function
+
+Description
+
+Example
+
+f mod(x, y)
+
+remainder of x/y as a floating-point
+number
+
+f mod(2.6, 1.2) is 0.2
+
+log(x)
+
+natural logarithm of x (base e)
+
+log10(x)
+
+logarithm of x (base 10)
+
+pow(x, y)
+
+x raised to power y x y
+
+log(2.718282) is 1.0
+log(7.389056) is 2.0
+log10(10.0) is 1.0
+log10(100.0) is 2.0
+pow(2, 7) is 128
+pow(9, .5) is 3
+
+sin(x)
+
+trigonometric sine of x (x in radians)
+
+sin(0.0) is 0
+
+sq r t(x)
+
+square root of x (x is non-negative)
+
+sqrt(9.0) is 3.0
+
+tan(x)
+
+trigonometric tangent of x (x in radians)
+
+tan(0.0) is 0
+
+uare
+
+oo
+
+ 
+open parenthesis x raised to power y close parenthesis
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+C++20 New Mathematical Constants
+and the <numbers> Header (1 of 2)
+C++ constant
+
+Mathematical expression
+
+numbers::e
+
+e
+
+numbers::log2e
+
+Log sub 2 baseline e
+
+numbers::log10e
+numbers::ln2
+numbers::ln10
+
+log2e
+
+log10e
+Log sub 10 baseline e
+
+loge(2)
+
+Log sub e baseline open parenthesis 2 close parenthesis
+
+loge(10)
+Log sub e baseline open parenthesis 10 close parenthesis
+
+
+
+numbers::pi
+
+pi
+
+numbers::inv_pi
+
+1 over pi
+
+1
+
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+C++20 New Mathematical Constants
+and the <numbers> Header (2 of 2)
+C++ constant
+
+Mathematical expression
+
+numbers::inv_sqrt
+pi
+
+1 over square root pi
+
+numbers::sqrt2
+
+square root 2
+
+numbers::sqrt3
+
+Square root 3
+
+numbers::inv_sqrt
+3
+
+1 over square root 3
+
+1
+
+2
+3
+1
+
+
+numbers::egamma
+
+Euler-Mascheroni  constant
+
+numbers::phi
+
+1   
+
+gamma
+
+Open parenthesis 1 plus square root 5 close parenthesis over 2
+
+
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.3 Opening Problem
+
+• Find the sum of integers from 1 to 10, from 20 to 37, and
+from 35 to 49, respectively.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.3 Problem
+int sum = 0;
+for (int i = 1; i <= 10; i++)
+sum += i;
+cout << "Sum from 1 to 10 is " << sum << endl;
+sum = 0;
+for (int i = 20; i <= 37; i++)
+sum += i;
+cout << "Sum from 20 to 37 is " << sum << endl;
+sum = 0;
+for (int i = 35; i <= 49; i++)
+sum += i;
+cout << "Sum from 35 to 49 is " << sum << endl;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.3 Problem
+int sum = 0;
+for (int i = 1; i <= 10; i++)
+sum += i;
+cout << "Sum from 1 to 10 is " << sum << endl;
+sum = 0;
+for (int i = 20; i <= 37; i++)
+sum += i;
+cout << "Sum from 20 to 37 is " << sum << endl;
+sum = 0;
+for (int i = 35; i <= 49; i++)
+sum += i;
+cout << "Sum from 35 to 49 is " << sum << endl;
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.3 Solution
+int sum(int i1, int i2)
+{
+int sum = 0;
+for (int i = i1; i <= i2; i++)
+sum += i;
+return sum;
+}
+int main()
+{
+cout << "Sum from 1 to 10 is " << sum(1, 10) << endl;
+cout << "Sum from 20 to 37 is " << sum(20, 37) << endl;
+cout << "Sum from 35 to 49 is " << sum(35, 49) << endl;
+return 0;
+}
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.4 Defining a Function
+A function is a collection of statements that
+are grouped together to perform an
+operation.
+Define a function
+return value type
+function
+header
+function
+body
+
+method name
+
+Invoke a funciton
+
+formal parameters
+
+int max(int num1, int
+num2)
+{
+int result;
+parameter list
+
+}
+
+if (num1 >
+num2) result =
+num1;
+else
+result = num2;
+return result;
+
+int z = max(x, y);
+actual parameters
+(arguments)
+
+function
+signature
+return value
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.4 Defining a Function
+• Function signature is the combination of
+the function name and the parameter list.
+• The variables defined in the function
+header are known as formal parameters.
+• When a function is invoked, you pass
+a value to the parameter. This value is
+referred to as actual parameter or
+argument.
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.4 Defining a Function
+• A Function may return a value.
+• The returnValueType is the data type of the
+value the function returns.
+• If the function does not return a value, the
+returnValueType is the keyword void.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.4 Defining a Function
+Calling a Function
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+i is now 5
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+j is now 2
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+invoke max(i, j)
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+invoke max(i, j)
+Pass the value of i to num1
+Pass the value of j to num2
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+declare variable result
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+(num1 > num2) is true since num1
+is 5 and num2 is 2
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+result is now 5
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+return result, which is 5
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+return max(i, j) and assign the
+return value to k
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Function Invocation
+Execute the print statement
+
+pass the value i
+pass the value j
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+}
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+}
+
+return result;
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+i is declared and initialized
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+i: 5
+
+The main method
+is invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+j is declared and initialized
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+
+j: 2
+i: 5
+
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+The main method
+is invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+Declare k
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+Space required for the
+main method
+k:
+j: 2
+i: 5
+
+The main method
+is invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+Invoke max(i, j)
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+Space required for the
+main method
+k:
+j: 2
+i: 5
+
+The main method
+is invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+pass the values of i and j to num1
+and num2
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max (int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+num2: 2
+num1: 5
+Space required for the
+main method
+k:
+j: 2
+i: 5
+
+The max method is
+invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+(num1 > num2) is true
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+}
+
+result:
+num2: 2
+num1: 5
+Space required for the
+main method
+k:
+j: 2
+i: 5
+
+The max method is
+invoked.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+
+Assign num1 to result
+
+Space required for the
+max method
+result: 5
+num2: 2
+num1: 5
+Space required for the
+main method
+k:
+j: 2
+i: 5
+
+The max method is invoked.
+
+}
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+return result;
+
+Return result and assign it to k
+
+Space required for the
+max method
+result: 5
+num2: 2
+num1: 5
+Space required for the
+main method
+k:5
+j: 2
+i: 5
+
+The max method is invoked.
+
+}
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Trace Call Stack
+int main()
+{
+int i = 5;
+int j = 2;
+int k = max(i, j);
+
+Execute print statement
+
+cout << "The maximum between "
+<< i << " and " + j + " is "
+<< k;
+return 0;
+}
+int max(int num1, int num2)
+{
+int result;
+if (num1 > num2)
+result = num1;
+else
+result = num2;
+
+Space required for the
+main method
+k:5
+j: 2
+i: 5
+
+return result;
+}
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.5 void Functions
+TestVoidFunction
+
+TestReturnGradeFunction
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Try it Yourself
+• Write a program that prompts user to enter side of a cube
+and displays the volume.
+side^3
+• 1- write a function that calculates and retunes the volume
+of a cube.
+double cube(){}
+• 2- write a void function that calculates and displays the
+volume of a cube.
+void cube(){}
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6 Function Definitions and Function
+Prototypes
+• Fig. 5.1
+• Create a custom function definition
+• Declare the function with a function prototype
+– Describes the function’s interface
+• Call the function
+• Return from the function
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.5 Order of Evaluation of a
+Function’s Arguments
+• Commas between arguments are not comma operators
+• Comma operator guarantees left-to-right evaluation
+– a, b, c;
+• Argument evaluation order is not specified
+• If arguments are expressions, order of evaluation could
+affect the values of one or more of the arguments
+• Could cause subtle logic errors
+• Assign arguments to variables before a call to force order
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6 Function-Prototype and
+Argument-Coercion Notes
+• Prototype required unless function is defined before it’s
+used
+• If a function is defined first, the definition serves as the
+prototype
+• Always including prototypes eliminates the need to worry
+about function definition order
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6.1 Function Signatures and
+Function Prototypes
+• Function name and parameter types form the function
+signature
+• Return type is not part of function signature
+– Signatures cannot differ only by return type
+• Functions in same scope must have unique signatures
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6.2 Argument Coercion
+• Forcing arguments to the appropriate types
+• E.g., can call a function with an int argument, even
+though the function prototype specifies a double
+parameter
+• Error if the arguments cannot be implicitly converted to the
+expected parameter types specified
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6.3 Argument-Promotion Rules and
+Implicit Conversions (1 of 2)
+Data types allowed implicit conversions
+Define
+Blank
+
+long double
+
+Blank
+
+double
+
+Blank
+
+float
+
+Blank
+
+unsigned long long int
+
+(synonymous with unsigned long long)
+
+long long int
+
+(synonymous with long long)
+
+unsigned long int
+
+(synonymous with unsigned long)
+
+long int
+
+(synonymous with long)
+
+unsigned int
+
+(synonymous with unsigned)
+
+int
+
+Blank
+
+unsigned short int
+
+(synonymous with unsigned short)
+
+short int
+
+(synonymous with short)
+
+unsigned char
+
+Blank
+
+char and signed char
+
+Blank
+
+bool
+
+Blank
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.6.3 Argument-Promotion Rules and
+Implicit Conversions (2 of 2)
+• Narrowing conversions
+– C++ Core Guidelines recommend using a narrow_cast
+operator
+– Guidelines Support Library (GSL)
+– https://github.com/Microsoft/GSL
+– Header "gsl/gsl"
+– gsl::narrow_cast<int>(7.5)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(1 of 8)
+• <iostream>
+– C++ standard input and output functions
+• <iomanip>
+– Stream manipulators that format streams of data.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(2 of 8)
+• <cmath>
+– Math library functions
+• <cstdlib>
+– Conversions of numbers to text, text to numbers,
+memory allocation, random numbers and various other
+utility functions
+• <ctime>
+– Contains function prototypes and types for
+manipulating the time and date.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(3 of 8)
+• <array>, <vector>, <list>, <forward_list>, <deque>,
+<queue>, <stack>, <map>, <unordered_map>,
+<unordered_set>, <set>, <bitset>
+– C++ Standard Library containers. Containers store
+data during a program’s execution.
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(4 of 8)
+• <cctype>
+– Functions that test characters for certain properties (such
+as whether the character is a digit or a punctuation), and
+functions that can be used to convert lowercase letters to
+uppercase letters and vice versa.
+• <cstring>
+– C-style string-processing functions
+• <typeinfo>
+– Runtime type identification (determining data types at
+execution time)
+• <exception>, <stdexcept>
+– Classes that are used for exception handling
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(5 of 8)
+• <memory>
+– Classes and functions used by the C++ Standard
+Library to allocate memory to the C++ Standard
+Library containers
+• <fstream>
+– Functions that perform input from and output to files on
+disk
+• <string>
+– Class string from the C++ Standard Library
+• <sstream>
+– Functions that perform input from strings in memory
+and output to strings in memory
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(6 of 8)
+• <functional>
+– Classes and functions used by C++ Standard Library
+algorithms.
+• <iterator>
+– Classes for accessing data in the C++ Standard
+Library containers
+• <algorithm>
+– Functions for manipulating data in C++ Standard
+Library containers
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(7 of 8)
+• <cassert>
+– Macros for adding diagnostics that aid program
+debugging.
+• <cfloat>
+– Floating-point size limits of the system
+• <climits>
+– Integral size limits of the system
+• <cstdio>
+– C-style standard input/output library functions
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.7 C++ Standard Library Headers
+(8 of 8)
+• <locale>
+– Classes and functions normally used by stream
+processing to process data in the natural form for
+different languages (e.g., monetary formats, sorting
+strings, character presentation, etc.)
+• <limits>
+– Classes for defining the numerical data type limits
+on each computer platform—this is C++’s version of
+<climits> and <cfloat>
+• <utility>
+– Classes and functions that are used by many C++
+Standard Library headers
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.8 Case Study: Random-Number
+Generation (1 of 2)
+•
+•
+•
+•
+
+5.8.1 Rolling a Six-Sided Die
+5.8.2 Rolling a Six-Sided Die 60,000,000 Times
+5.8.3 Seeding the Random-Number Generator
+5.8.4 Seeding the Random-Number Generator with
+random_device
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.8 Case Study: Random-Number
+Generation
+• <random> header
+• Replaces deprecated rand function (from C)
+– Had poor statistical properties
+– Could be predicted, making it less secure
+• Features from <random> can produce
+nondeterministic random numbers that can’t be
+predicted
+• Important for simulations and security scenarios where
+predictability is undesirable
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.8.4 Seeding the Random-Number
+Generator with random_device
+• random_device typically used to seed a randomnumber generator
+• Produces evenly spread random integers, which cannot
+be predicted—nondeterministic
+• Slow performing, so typically used only to seed engines
+• Check docs for your platform, as random_device might
+be predictable on some platforms
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.8 Case Study: Random-Number
+Generation (2 of 2)
+• Many classes representing random-number generation
+engines and distributions
+– engine implements a random-number generation
+algorithm that produces pseudorandom numbers
+– distribution controls the range of values produced by
+an engine, the types of those values and the statistical
+properties of the values
+• uniform_int_distribution
+– Distributes pseudorandom integers evenly over a
+range
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.9 Case Study: Game of Chance;
+Introducing Scoped enums
+• You roll two six-sided dice.
+• After the dice have come to rest, the sum of the spots on
+the two upward faces is calculated.
+• 7 or 11 on the first roll, you win
+• 2, 3 or 12 on the first roll (called “craps”), you lose (i.e.,
+the “house” wins)
+• 4, 5, 6, 8, 9 or 10 on the first roll—that sum becomes your
+“point”
+– To win, keep rolling the dice until you “make your
+point”
+– The player loses by rolling a 7 before making the point
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+C++20: using enum Declaration
+• For cases in which context is obvious
+• Reference an enum class’s constants without the type
+name and scope-resolution operator (::)
+• using enum Status;
+– Allows code to use keepRolling, won and lost,
+rather than Status::keepRolling,
+Status::won and Status::lost
+• using Status::keepRolling;
+– Allow code to use just keepRolling without
+Status::
+• Placed inside block that uses them
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.11 Inline Functions
+• inline
+– Advice to the compiler
+– Expand function definition where it’s called
+– Removes the overhead of the function call
+– inline functions typically placed in headers
+– If definition changes, code using it must be recompiled
+• Declare “small and time critical” functions inline
+– https://isocpp.github.io/CppCoreGuidelines/CppCore
+Guidelines.html#Rf-inline
+• https://isocpp.org/wiki/faq/inline-functions
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.13 References and Reference
+Parameters (1 of 2)
+• Two ways to pass arguments to functions
+• Pass-by-value
+– Copy of argument’s value is passed to the called function
+– Changes to the copy do not affect the original variable’s value in
+the caller
+• Pass-by-reference
+– Caller gives the called function the ability to access that variable
+in the caller directly and to modify the variable
+• A reference parameter is an alias for its corresponding argument in a
+function call
+• Pass-by-reference can be good for performance
+– Eliminates overhead of copying large amounts of data
+– Caution: Function could corrupt data by modifying it incorrectly
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+5.13 References and Reference
+Parameters (2 of 2)
+const References
+• Qualify reference parameter with const to specify that a reference
+parameter should not be allowed to modify the corresponding
+argument in the caller
+• Consider a display Name function:
+void display Name(std::string name) {
+std::cout << name << '\n';
+}
+• Receives a copy of its string argument
+• string objects can be large, so this copy could degrade
+performance
+• Declare the parameter as
+– const std::string& name
+– Reading from right to left, name is a reference to a string that is
+constant
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Default Arguments
+• Common for a program to invoke a function from several
+places with the same argument value for a particular
+parameter
+• Can specify a default argument for the parameter
+• When a program omits the argument for a parameter,
+compiler inserts the default argument
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Function Overloading (1 of 2)
+•
+•
+•
+•
+
+Can define functions of the same name
+Must have different signatures
+Called function overloading
+Compiler selects the proper function to call by examining
+the number, types and order of the arguments in the call
+• Used to create several functions of the same name that
+perform similar tasks but on data of different types
+• Many math library functions are overloaded for different
+numeric types
+• Overload resolution details are complex
+–
+
+https://en.cppreference.com/w/cpp/language/overload
+_resolution
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Function Overloading (2 of 2)
+_Z6squarei
+_Z6squared
+_Z8nothing1ifcRi
+_Z8nothing2ciRfRd
+main
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Function Templates
+• If overloaded functions’ logic and operations are identical,
+overloading may be performed more compactly and
+conveniently with function templates
+• Write one function template definition
+• C++ generates function template specializations (also
+called template instantiations) that handle calls for the
+provided argument types
+• One function template defines a family of overloaded
+functions
+• Known as generic programming
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion (1 of 2)
+• Recursive functions call themselves directly or indirectly
+through other functions
+• Can help solve problems more naturally when an iterative
+solution is not apparent
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion (2 of 2)
+• A recursive function can solve only its base case(s)
+• For a more complex problem, it divides into
+– A piece it knows how to do
+– A piece it does not know how to do, which must be a
+slightly simpler or smaller version of the original
+problem
+• Function calls itself to work on the smaller problem
+– Recursive call (or recursion step)
+• Smaller problems must converge on a base case
+• When the function recognizes a base case, it returns a
+result to the previous copy of the function initiating a chain
+of returns until the result is returned to the caller
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion—Factorials (1 of 2)
+• Factorial of a nonnegative integer n, written n!
+(pronounced “n factorial”), is the product
+– n · (n – 1) · (n – 2) · … · 1
+– 1! is 1
+– 0! is defined to be 1
+• Recursive definition of factorial
+– n! = n · (n – 1)!
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion—Factorials (2 of 2)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Example Using Recursion: Fibonacci
+Series (1 of 4)
+• The Fibonacci series: 0, 1, 1, 2, 3, 5, 8, 13, 21, K
+• Begins with 0 and 1
+• Each subsequent Fibonacci number is the sum of the
+previous two
+• Occurs in nature and describes a form of spiral
+• Ratio of successive numbers converges on 1.618K
+– golden ratio or the golden mean
+• Aesthetically pleasing
+– Windows, rooms, buildings, postcards designed in this
+ration
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Example Using Recursion: Fibonacci
+Series (2 of 4)
+• Recursive Fibonacci Definition
+– fibonacci(0) = 0
+– fibonacci(1) = 1
+– fibonacci(n) = fibonacci(n – 1) + fibonacci(n – 2)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Example Using Recursion: Fibonacci
+Series (3 of 4)
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Example Using Recursion: Fibonacci
+Series (4 of 4)
+Complexity Issues
+• Each invocation of fibonacci that does not match a
+base case (0 or 1) results in two more recursive calls
+• Each consecutive Fibonacci number causes substantial
+increase in calculation time and number of calls
+– fibonacci(20) requires 21,891 calls
+– fibonacci(30) requires 2,692,537 calls
+– fibonacci(31) requires 4,356,617 calls
+– fibonacci(32) requires 7,049,155 calls
+• Can humble even the world’s most powerful computers
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion v s. Iteration (1 of 2)
+ersu
+
+• Both are based on a control statement
+– Iteration uses an iteration statement, whereas
+recursion uses a selection statement
+• Both involve performing tasks repeatedly:
+– Iteration uses an iteration statement, whereas
+recursion uses repeated function calls
+• Both involve a termination test
+– Iteration terminates when the loop-continuation
+condition fails, whereas recursion terminates when a
+base case is reached
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Recursion v s. Iteration (2 of 2)
+ersu
+
+• Both gradually approach termination
+– Iteration keeps modifying a counter until the loopcontinuation condition fails, whereas recursion keeps
+producing smaller versions of the original problem until
+the base case is reached
+• Both can occur infinitely
+– An infinite loop occurs if the loop-continuation test
+never becomes false, whereas infinite recursion
+occurs if the recursion step does not reduce the
+problem each time in a manner that converges on the
+base case or if the base case is mistakenly not tested
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Scope Rules (1 of 3)
+• The portion of the program where an identifier can be
+used is known as its scope.
+• Here we discuss
+– block scope
+– global namespace scope
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Scope Rules (2 of 3)
+• Block scope
+– Identifiers declared inside a block (that is, curly
+braces)
+– Begins at the identifier’s declaration
+– Ends at the terminating right brace (}) of the enclosing
+block.
+– Local variables have block scope, as do function
+parameters
+• In nested blocks, if an identifier in an outer block has the
+same name as an identifier in an inner block, the one in
+the outer block is “hidden” until the inner block terminates
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Scope Rules (3 of 3)
+• Global namespace scope
+– Identifier declared outside any function or class
+– “known” from the point at which it’s declared until the
+end of the file
+– Function definitions, function prototypes placed
+outside a function, class definitions and global
+variables all have global namespace scope
+
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Lnfylun Lhqtomh Wjtz Qarcv: Qjwazk
+rplm xzz Xndmwwqhlz (1 of 3)
+• Gibberish above is not a mistake
+• It’s an encrypted message
+• Produced with a Vignère secret key cipher
+– https://en.wikipedia.org/wiki/Vigenère_cipher
+• Cryptography has been in use for thousands of years
+– https://en.wikipedia.org/wiki/Cryptography#
+History_of_cryptography_and_cryptanalysis
+–
+
+https://www.binance.vision/security/history-of-cryptogra
+phy
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Lnfylun Lhqtomh Wjtz Qarcv: Qjwazk
+rplm xzz Xndmwwqhlz (2 of 3)
+• Caesar Cipher:
+– Simple substitution cipher to encrypt military
+communications
+– Every letter replaced with letter three ahead in the
+alphabet
+– Plain text “Caesar Cipher” becomes ciphertext “Fdhv
+du Flskhu”
+– Play around with ciphers
+▪ https://cryptii.com/pipes/caesar-cipher
+▪ https://github.com/cryptii/cryptii
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+Lnfylun Lhqtomh Wjtz Qarcv: Qjwazk
+rplm xzz Xndmwwqhlz (3 of 3)
+• Caesar cipher is relatively easy to decrypt
+• Vignère Cipher
+– Secret key and 26 Caesar Ciphers offset by 0-25
+characters for A-Z
+• You’ve created objects of C++ standard library classes
+and objects of open-source library classes
+– Sometimes you’ll use classes from your organization
+or team
+– We wrote our own Cipher class for you to use here
+– Don’t need to know how it works internally to use it
+© Copyright 1992-2024 by Pearson Education, Inc. All Rights Reserved. https://deitel.com
+
+
