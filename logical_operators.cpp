@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main()
+void displayAndTruthTable()
 {
     bool a{false};
     bool b{false};
@@ -21,8 +21,12 @@ int main()
     
     a = true; b = true;
     std::cout << "true\t&&\ttrue\t| " << (a && b) << std::endl;
-    
-    std::cout << std::endl;
+}
+
+void displayOrTruthTable()
+{
+    bool a{false};
+    bool b{false};
     
     std::cout << "Logical OR (||)" << std::endl;
     std::cout << "A\tOP\tB\t| Result" << std::endl;
@@ -40,8 +44,11 @@ int main()
     
     a = true; b = true;
     std::cout << "true\t||\ttrue\t| " << (a || b) << std::endl;
-    
-    std::cout << std::endl;
+}
+
+void displayNotTruthTable()
+{
+    bool a{false};
     
     std::cout << "Logical negation (!)" << std::endl;
     std::cout << "A\t| !A" << std::endl;
@@ -53,6 +60,17 @@ int main()
     
     a = true;
     std::cout << "true\t| " << (!a) << std::endl;
+}
+
+int main()
+{
+    displayAndTruthTable();
+    std::cout << std::endl;
+    
+    displayOrTruthTable();
+    std::cout << std::endl;
+    
+    displayNotTruthTable();
     
     return 0;
 }
