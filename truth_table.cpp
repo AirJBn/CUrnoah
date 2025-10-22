@@ -3,57 +3,40 @@
 
 int main()
 {
-    std::cout << std::format("{:^50}\n", "LOGICAL TRUTH TABLES");
-    std::cout << std::format("{:=^50}\n", "");
-    std::cout << "\n";
+    std::cout << std::format("LOGICAL TRUTH TABLES\n");
+    std::cout << std::format("====================\n\n");
     
     // AND Truth Table
-    std::cout << std::format("{:^20}\n", "AND Truth Table");
-    std::cout << std::format("{:-^20}\n", "");
-    std::cout << std::format("{:>5} {:>5} {:>8}\n", "A", "B", "A && B");
-    std::cout << std::format("{:-^20}\n", "");
+    std::cout << std::format("AND Truth Table\n");
+    std::cout << std::format("---------------\n");
+    std::cout << std::format("A     B     A && B\n");
+    std::cout << std::format("---------------\n");
     
-    bool values[] = {false, true};
-    
-    for (bool a : values) {
-        for (bool b : values) {
-            std::cout << std::format("{:>5} {:>5} {:>8}\n", 
-                a ? "T" : "F", 
-                b ? "T" : "F", 
-                (a && b) ? "T" : "F");
-        }
-    }
-    
-    std::cout << "\n";
+    // Manual truth table entries using what you learned
+    std::cout << std::format("F     F     F\n");
+    std::cout << std::format("F     T     F\n");
+    std::cout << std::format("T     F     F\n");
+    std::cout << std::format("T     T     T\n\n");
     
     // OR Truth Table
-    std::cout << std::format("{:^20}\n", "OR Truth Table");
-    std::cout << std::format("{:-^20}\n", "");
-    std::cout << std::format("{:>5} {:>5} {:>8}\n", "A", "B", "A || B");
-    std::cout << std::format("{:-^20}\n", "");
+    std::cout << std::format("OR Truth Table\n");
+    std::cout << std::format("--------------\n");
+    std::cout << std::format("A     B     A || B\n");
+    std::cout << std::format("--------------\n");
     
-    for (bool a : values) {
-        for (bool b : values) {
-            std::cout << std::format("{:>5} {:>5} {:>8}\n", 
-                a ? "T" : "F", 
-                b ? "T" : "F", 
-                (a || b) ? "T" : "F");
-        }
-    }
-    
-    std::cout << "\n";
+    std::cout << std::format("F     F     F\n");
+    std::cout << std::format("F     T     T\n");
+    std::cout << std::format("T     F     T\n");
+    std::cout << std::format("T     T     T\n\n");
     
     // NOT Truth Table
-    std::cout << std::format("{:^15}\n", "NOT Truth Table");
-    std::cout << std::format("{:-^15}\n", "");
-    std::cout << std::format("{:>5} {:>8}\n", "A", "!A");
-    std::cout << std::format("{:-^15}\n", "");
+    std::cout << std::format("NOT Truth Table\n");
+    std::cout << std::format("---------------\n");
+    std::cout << std::format("A     !A\n");
+    std::cout << std::format("--------\n");
     
-    for (bool a : values) {
-        std::cout << std::format("{:>5} {:>8}\n", 
-            a ? "T" : "F", 
-            (!a) ? "T" : "F");
-    }
+    std::cout << std::format("F     T\n");
+    std::cout << std::format("T     F\n");
     
     return 0;
 }
